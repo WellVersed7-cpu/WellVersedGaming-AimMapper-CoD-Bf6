@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Well-Versed Gaming AimMapper — CoD → Battlefield 6 (v34b)</title>
+<title>Well-Versed Gaming AimMapper — CoD → Battlefield 6 (v34e)</title>
 <meta name="description" content="Translate CoD to BF6, visualize curves (incl. BF6 Dynamic), test deadzones, export/import presets."/>
 <style>
 :root{ --bg:#0b0e12; --panel:#101419; --panel2:#0d1116; --ink:#eef3fb; --mut:#a9b6c6; --line:#1d2530;
@@ -19,7 +19,7 @@ h3{margin:0 0 10px}
 .banner{background:linear-gradient(90deg,#101722,#0b0e12);border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px}
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px;position:sticky;top:0;background:linear-gradient(#0b0e12,#0b0e1200);padding-top:6px;z-index:2}
 .tab{padding:8px 12px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:#e6f0ff;cursor:pointer;font-weight:800;user-select:none;transition:transform .04s,background .15s}
-.tab:hover{background:var(--hover)} .tab:active{transform:translateY(1px)} .tab.active{background:#1a2530;border-color:#28405a;box-shadow:inset 0 0 0 1px #27445f}
+.tab:hover{background:#1e2a36} .tab:active{transform:translateY(1px)} .tab.active{background:#1a2530;border-color:#28405a;box-shadow:inset 0 0 0 1px #27445f}
 .section{display:none}.section.active{display:block}
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
 .card{grid-column:span 6;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
@@ -33,7 +33,7 @@ textarea{min-height:130px;resize:vertical}
 .btn.pri{background:linear-gradient(180deg,#1b3c4e,#11232f);border-color:#2c5c78;color:#e6f6ff}
 .btn.alt{background:#121820;color:#cfe0f6;border:1px solid #31425d}
 .btn.warn{background:#2b1a0e;color:#ffd9a8;border:1px solid #5a3a16}
-.out{white-space:pre-wrap;background:#0a0f16;border:1px dashed #2a3d54;padding:12px;border-radius:12px;min-height:220px}
+.out{white-space:pre; background:#0a0f16;border:1px dashed #2a3d54;padding:12px;border-radius:12px;min-height:220px;font-family:ui-monospace,Consolas,monospace}
 .tip{background:#0a1323;border:1px solid #223654;border-radius:12px;padding:10px}
 
 /* Curve canvases */
@@ -60,7 +60,7 @@ textarea{min-height:130px;resize:vertical}
 </head>
 <body>
 <div class="wrap">
-  <div class="banner">🎅 <b>Well-Versed Gaming AimMapper</b> — Translate CoD → BF6, visualize curves, test sticks, export presets. “No weapon formed against you shall prosper.” — Isaiah 54:17</div>
+  <div class="banner">🎯 <b>Well-Versed Gaming AimMapper</b> — Translate CoD → BF6, visualize curves, test sticks, export presets. “No weapon formed against you shall prosper.” — Isaiah 54:17</div>
   <h1>CoD (BO6/BO7/WZ) → Battlefield 6</h1>
 
   <div class="tabs" role="tablist" aria-label="Sections">
@@ -95,13 +95,19 @@ textarea{min-height:130px;resize:vertical}
           </div>
         </div>
 
+        <!-- CoD FOV only (VAR/VZR are BF6 outputs) -->
+        <div class="row">
+          <div class="third">
+            <label>Field of View (CoD)</label>
+            <input id="cod_fov" type="number" min="60" max="120" step="1" value="105">
+            <div class="small">Match CoD & BF6 for true muscle memory.</div>
+          </div>
+        </div>
+
         <div class="row">
           <div class="half">
             <label>ADS Multiplier (CoD)</label>
-            <div class="row" style="gap:8px">
-              <input id="codADS" class="half" type="number" min="0.50" max="1.50" step="0.01" value="1.00">
-              <button id="ads85Btn" class="btn alt half" title="Common comp ADS feel">Set to 0.85</button>
-            </div>
+            <input id="codADS" type="number" min="0.50" max="1.50" step="0.01" value="1.00">
             <div class="small">In BF6 this maps to “Zoom Aim Sensitivity” ≈ ADS×100 (%).</div>
           </div>
           <div class="half">
@@ -152,9 +158,10 @@ Fill CoD values and press TRANSLATE ⚡ TO BF6.</pre>
         <div class="hr"></div>
         <div class="tip small">
           <b>Quick tips</b><br>
+          • Keep CoD & BF6 <b>FOV the same</b> for true muscle-memory transfer.<br>
+          • 16″ laptop: <b>100–110</b> often tracks better than 115. Big TVs (55–75″): <b>105–110</b> balances size/clarity.<br>
+          • If ADS “jumps off” target: lower BF6 Zoom Aim a few points.<br>
           • UIA <b>ON</b> keeps zooms consistent (set 1×–10× to 100).<br>
-          • If ADS “jumps off” target: lower Zoom Aim a little (e.g., 95→92).<br>
-          • If AA “bubble” drags: Slowdown −5 (90→85). Zoom Snap 90–95 smooths entry.<br>
           • In BF6, aim-assist reacts to <b>right stick</b> input (CoD often favored left-stick strafe).<br>
         </div>
       </div>
@@ -221,7 +228,7 @@ Fill CoD values and press TRANSLATE ⚡ TO BF6.</pre>
             <div>Suggested CoD MIN</div><div id="lmin">0</div>
             <div>BF6 Center Deadzone</div><div id="lcent">0</div>
             <div>BF6 Axial (suggested)</div><div id="lax">0</div>
-            <div>BF6 Max Input Threshold</div><div>100</div>
+            <div>BF6 Max Input Threshold</div><div id="lmaxth">99</div>
           </div>
         </div>
         <div class="card">
@@ -233,14 +240,14 @@ Fill CoD values and press TRANSLATE ⚡ TO BF6.</pre>
             <div>Suggested CoD MIN</div><div id="rmin">0</div>
             <div>BF6 Center Deadzone</div><div id="rcent">0</div>
             <div>BF6 Axial (suggested)</div><div id="rax">0</div>
-            <div>BF6 Max Input Threshold</div><div>100</div>
+            <div>BF6 Max Input Threshold</div><div id="rmaxth">99</div>
           </div>
         </div>
       </div>
 
       <div class="hr"></div>
       <h4>Trigger Recommendations</h4>
-      <div class="small">Set these in BF6 Controller → Triggers: <b>LT 0/5</b> • <b>RT 0/5</b>. (We show them here as guidance; no toggles.)</div>
+      <div class="small">Set these in BF6 Controller → Triggers: <b>LT 0/5</b> • <b>RT 0/5</b>.</div>
       <div class="small" id="padInfo" style="margin-top:8px"></div>
     </div>
   </div>
@@ -266,11 +273,10 @@ Fill CoD values and press TRANSLATE ⚡ TO BF6.</pre>
         • <b>Infantry Aim Sensitivity</b> — Hip turn speed (H+V). Starts at 40; many land 35–42. Not ADS.<br>
         • <b>Uniform Infantry Aiming</b> — Keep ON; makes zooms consistent. Then set each Zoom to 100.<br>
         • <b>Zoom Sensitivity Coefficient</b> — ADS vs FOV scale: <b>178</b>≈CoD Affected, <b>163</b>≈Independent.<br>
-        • <b>Zoom Aim Sensitivity</b> — ADS speed. CoD ADS 0.85 ≈ 85%.<br>
+        • <b>Zoom Aim Sensitivity</b> — ADS speed. CoD ADS 0.85 → BF6 Zoom Aim ≈ 85%.<br>
         • <b>Curves</b> — BF3 snappy, BF1/BF4 smooth, BFV/BC lighter, Linear 1:1, <b>Dynamic (NEW)</b> = fast-micro → flat-mid → fast-late.<br>
         • <b>Triggers</b> — MIN 0 / MAX 5 is crisp. Raise MIN only for noisy triggers.<br>
-        • <b>Deadzones</b> — Use the tester: CoD MIN ≙ BF6 Center Deadzone. Axial fixes diagonal idle drift if needed.<br>
-        • <b>Comfort</b> — Set all camera-shake/blur/vibration sliders to <b>0</b> (or lowest allowed). Turn <b>Head-Bob Reduction ON</b>. Disable gyro unless needed.<br>
+        • <b>Deadzones</b> — CoD MIN ≙ BF6 Center Deadzone. Axial fixes diagonal idle drift if needed.<br>
       </div>
     </div>
   </div>
@@ -296,13 +302,13 @@ function codOut(x,mode,slope){
 const BF6_FAMS = { 'BF3':1.05, 'BF1 / BF4':1.12, 'BFV':1.18, 'BFBC2':1.24, 'BFBC':1.28, 'Linear':1.00, 'Dynamic (NEW)':null };
 function bfPow(x,p){ return Math.pow(clamp(x,0,1), p); }
 
-/* Robust, monotonic BF6 Dynamic (matches the settings thumbnail) */
+/* Robust, monotonic BF6 Dynamic */
 function bf6Dynamic(x){
   x = clamp(x,0,1);
   const A=[0.00,0.00], B=[0.30,0.60], C=[0.72,0.68], D=[1.00,1.00];
-  if (x<=B[0]){ const t = (x-A[0])/(B[0]-A[0]||1e-6); return lerp(A[1],B[1],t); }       // rising micro
-  if (x<=C[0]){ const t = (x-B[0])/(C[0]-B[0]||1e-6); return lerp(B[1],C[1],t); }       // flat/near-flat mid
-  const t = (x-C[0])/(D[0]-C[0]||1e-6); return lerp(C[1],D[1],t);                       // late ramp
+  if (x<=B[0]){ const t = (x-A[0])/(B[0]-A[0]||1e-6); return lerp(A[1],B[1],t); }
+  if (x<=C[0]){ const t = (x-B[0])/(C[0]-B[0]||1e-6); return lerp(B[1],C[1],t); }
+  const t = (x-C[0])/(D[0]-C[0]||1e-6); return lerp(C[1],D[1],t);
 }
 
 /* ===== translator helpers ===== */
@@ -319,35 +325,56 @@ function chooseBFCurve(curve,slope){
   return {family:'BFBC2'};
 }
 
-/* ===== build BF6 block ===== */
-function bfBlock(p){ return [
-`1) Infantry Aim Sensitivity: ${p.soldier}  ${p.mapMode}`,
-`2) Uniform Infantry Aiming: ON`,
-`3) Zoom Sensitivity Coefficient: ${p.coeff}  (178≈Affected • 163≈Independent)`,
-`— Zoom —`,
-`4) Infantry Zoom Aim Sensitivity: ${p.zoomAim}%  (≈ CoD ADS ×100)`,
-`5) Infantry Aim Input Curve: ${p.family}`,
-`6) Infantry Zoom Aim Input Curve: ${p.family}`,
-`— Aim Assist —`,
-`7) Strength: ${p.aa}   • Slowdown: ${p.slow}   • Zoom Snap: ${p.snap}`,
-`— Controller —`,
-`• LEFT  Center Deadzone: ${p.lMin}   • Axial: ${p.axialL}   • Max Input Threshold: 100`,
-`• RIGHT Center Deadzone: ${p.rMin}   • Axial: ${p.axialR}   • Max Input Threshold: 100`,
-`• Triggers (min/max): LT ${p.ltMin}/${p.ltMax} • RT ${p.rtMin}/${p.rtMax}`,
-`— Notes —`,
-`• CoD ${p.codCurve} @ ${p.codSlope.toFixed(2)} ≈ ${p.family}. Right-stick drives AA in BF6.`
-].join('\n');}
+/* ===== Output block formatting (aligned) ===== */
+function fmtKV(label, value){
+  const L=28; // pad labels to fixed width for perfect vertical alignment
+  const lab=(label+':').padEnd(L,' ');
+  return `${lab} ${value}`;
+}
+function bfBlock(p){
+  const lines = [
+    fmtKV('1) Infantry Aim Sensitivity', `${p.soldier}  ${p.mapMode}`),
+    fmtKV('2) Uniform Infantry Aiming', `ON`),
+    fmtKV('3) Field of View', `${p.fov}`),
+    fmtKV('4) Vertical Aim Ratio', `${p.var}   (74=BO6 angular → 84=OW2)`),
+    fmtKV('5) Vertical Zoom Ratio', `${p.vzr}`),
+    fmtKV('6) Zoom Sensitivity Coefficient', `${p.coeff}  (178≈Affected • 163≈Independent)`),
+    '— Zoom —',
+    fmtKV('7) Infantry Zoom Aim Sensitivity', `${p.zoomAim}%  (≈ CoD ADS × 100%)`),
+    fmtKV('8) Infantry Aim Input Curve', `${p.family}`),
+    fmtKV('9) Infantry Zoom Aim Input Curve', `${p.family}`),
+    '— Aim Assist —',
+    fmtKV('10) Strength', `${p.aa}`),
+    fmtKV('   • Slowdown', `${p.slow}`),
+    fmtKV('   • Zoom Snap', `${p.snap}`),
+    '— Controller —',
+    fmtKV('• LEFT  Center Deadzone', `${p.lMin}`),
+    fmtKV('• LEFT  Axial (suggested)', `${p.axialL}`),
+    fmtKV('• LEFT  Max Input Threshold', `${p.lMaxThresh}`),
+    fmtKV('• RIGHT Center Deadzone', `${p.rMin}`),
+    fmtKV('• RIGHT Axial (suggested)', `${p.axialR}`),
+    fmtKV('• RIGHT Max Input Threshold', `${p.rMaxThresh}`),
+    fmtKV('• Triggers (min/max)', `LT ${p.ltMin}/${p.ltMax} • RT ${p.rtMin}/${p.rtMax}`),
+    '— Notes —',
+    `• CoD ${p.codCurve} @ ${p.codSlope.toFixed(2)} ≈ ${p.family}. Right-stick drives AA in BF6.`
+  ];
+  return lines.join('\n');
+}
 
 /* ===== TRANSLATE ===== */
-$('ads85Btn').addEventListener('click',()=>{ $('codADS').value='0.85'; });
-
 function translateToBF(){
   const curve=$('codCurve').value, slope=clamp(parseFloat($('codSlope').value||1.00),0.40,1.00);
   const mode=$('codADSMode').value, h=$('codH').value, v=$('codV').value;
   const useSpeed=$('speedMatch').checked;
-  const L=clamp(Math.round(parseFloat($('lsMin').value||12)),0,20);
-  const R=clamp(Math.round(parseFloat($('rsMin').value||12)),0,20);
-  const ltMin=0, ltMax=5, rtMin=0, rtMax=5;  // shown as guidance only
+
+  const Lmin=clamp(Math.round(parseFloat($('lsMin').value||12)),0,20);
+  const Rmin=clamp(Math.round(parseFloat($('rsMin').value||12)),0,20);
+  const Lmax=clamp(Math.round(parseFloat($('lsMax').value||99)),50,100);
+  const Rmax=clamp(Math.round(parseFloat($('rsMax').value||99)),50,100);
+
+  const ltMin=0, ltMax=5, rtMin=0, rtMax=5;
+
+  const codFov = clamp(parseFloat($('cod_fov').value||105),60,120);
 
   const pick=chooseBFCurve(curve,slope);
   const coeff=suggestCoeff(mode);
@@ -356,17 +383,30 @@ function translateToBF(){
   const axialL=window.__axialSuggestL__ ?? 0;
   const axialR=window.__axialSuggestR__ ?? 0;
 
+  const codADS = clamp(parseFloat($('codADS').value||1.00),0.50,1.50);
+  const zoomAimPct = Math.round(codADS * 100);
+
   const p={
     soldier,mapMode:useSpeed?'(Speed-Match)':'(Classic)',coeff,
-    zoomAim:Math.round(clamp(parseFloat($('codADS').value||1.00),0.50,1.50)*100),
+    zoomAim: zoomAimPct,
     family:pick.family, aa:100, slow:(pick.family==='BF3'?85:90), snap:95,
-    lMin:L, rMin:R, axialL, axialR, ltMin, ltMax, rtMin, rtMax,
-    codCurve:curve, codSlope:slope
+    lMin:Lmin, rMin:Rmin, axialL, axialR, ltMin, ltMax, rtMin, rtMax,
+    codCurve:curve, codSlope:slope,
+    fov: codFov, var: 56, vzr: 70,
+    lMaxThresh:Lmax, rMaxThresh:Rmax
   };
 
   $('out').textContent = bfBlock(p);
   $('copyOut').disabled=false;
   $('coach').textContent='Generated BF6 block in menu order (numbered).';
+
+  // Live reflect Max Input Thresholds on Deadzone page
+  $('lmaxth').textContent = String(Lmax);
+  $('rmaxth').textContent = String(Rmax);
+
+  // Also reflect Center Deadzones from CoD mins
+  $('lcent').textContent = String(Lmin);
+  $('rcent').textContent = String(Rmin);
 
   // Auto-sync visualizer
   window.__aimMapperState__ = { codCurve: curve, codSlope: slope, bfFam: pick.family };
@@ -380,7 +420,10 @@ $('toBF').addEventListener('click',translateToBF);
 $('copyOut').addEventListener('click',()=>{
   const t=$('out').textContent;
   if(navigator.clipboard?.writeText){ navigator.clipboard.writeText(t); }
-  else{ const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); }
+  else{
+    const ta=document.createElement('textarea'); ta.value=t;
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+  }
 });
 $('reset').addEventListener('click',()=>location.reload());
 
@@ -423,7 +466,11 @@ function drawGrid(g,css,xlabel){
 }
 function plotCurve(g,box,fn,color,lw=3.2){
   const {pad,w,h}=box,N=320; g.strokeStyle=color; g.lineWidth=lw; g.beginPath();
-  for(let i=0;i<=N;i++){ const x=i/N,y=clamp(fn(x),0,1); const px=pad+x*(w-2*pad), py=(h-pad)-y*(h-2*pad); if(i===0)g.moveTo(px,py); else g.lineTo(px,py); }
+  for(let i=0;i<=N;i++){
+    const x=i/N,y=clamp(fn(x),0,1);
+    const px=pad+x*(w-2*pad), py=(h-pad)-y*(h-2*pad);
+    if(i===0)g.moveTo(px,py); else g.lineTo(px,py);
+  }
   g.stroke();
 }
 function drawAnchors(g,box,codFn,bfFn){
@@ -440,7 +487,10 @@ function drawAnchors(g,box,codFn,bfFn){
 }
 function fitPowerExponent(toMatchFn){
   let bestP=1.0, bestErr=Infinity; const xs=[]; for(let i=1;i<=200;i++) xs.push(i/200);
-  for(let p=0.85; p<=1.60; p+=0.0025){ let sse=0; for(const x of xs){ const d = bfPow(x,p) - toMatchFn(x); sse += d*d; } if(sse<bestErr){ bestErr=sse; bestP=p; } }
+  for(let p=0.85; p<=1.60; p+=0.0025){
+    let sse=0; for(const x of xs){ const d = bfPow(x,p) - toMatchFn(x); sse += d*d; }
+    if(sse<bestErr){ bestErr=sse; bestP=p; }
+  }
   return {p:bestP, rmse:Math.sqrt(bestErr/xs.length)};
 }
 function tipFromErrors(codFn,bfFn,label){
@@ -517,15 +567,39 @@ function pollPad(){
   if(!dzState.hadPad){ $('dzStatus').textContent='Controller detected ✓  Press Start to measure idle.'; $('dzStatus').className='status ok'; dzState.hadPad=true; $('padInfo').textContent='Gamepad: '+(pad.id||'Unknown')+(pad.mapping?(' • '+pad.mapping):''); }
   const ax=pad.axes||[]; let lx=ax[0], ly=ax[1], rx=ax[2], ry=ax[3]; if(typeof rx!=='number'||typeof ry!=='number'){ rx=ax[2]; ry=ax[5]; }
   lx=Math.round(clamp(lx||0,-1,1)*100); ly=Math.round(clamp(ly||0,-1,1)*100); rx=Math.round(clamp(rx||0,-1,1)*100); ry=Math.round(clamp(ry||0,-1,1)*100);
-  if(dzState.phase==='idle'){ dzState.idleMax.lx=Math.max(dzState.idleMax.lx,Math.abs(lx)); dzState.idleMax.ly=Math.max(dzState.idleMax.ly,Math.abs(ly)); dzState.idleMax.rx=Math.max(dzState.idleMax.rx,Math.abs(rx)); dzState.idleMax.ry=Math.max(dzState.idleMax.ry,Math.abs(ry)); dzState.idleSamples.push({lx,ly,rx,ry}); if(performance.now()>dzState.idleDoneAt) finishIdle(); }
-  dzState.last={...dzState.last,lx,ly,rx,ry}; $('lxy').textContent=`${Math.abs(lx)},${Math.abs(ly)}`; $('rxy').textContent=`${Math.abs(rx)},${Math.abs(ry)}`;
-  drawStick($('dzL'),lx,ly,(dzState.last.lMin||0)); drawStick($('dzR'),rx,ry,(dzState.last.rMin||0));
+  if(dzState.phase==='idle'){
+    dzState.idleMax.lx=Math.max(dzState.idleMax.lx,Math.abs(lx));
+    dzState.idleMax.ly=Math.max(dzState.idleMax.ly,Math.abs(ly));
+    dzState.idleMax.rx=Math.max(dzState.idleMax.rx,Math.abs(rx));
+    dzState.idleMax.ry=Math.max(dzState.idleMax.ry,Math.abs(ry));
+    dzState.idleSamples.push({lx,ly,rx,ry});
+    if(performance.now()>dzState.idleDoneAt) finishIdle();
+  }
+  dzState.last={...dzState.last,lx,ly,rx,ry};
+  $('lxy').textContent=`${Math.abs(lx)},${Math.abs(ly)}`;
+  $('rxy').textContent=`${Math.abs(rx)},${Math.abs(ry)}`;
+  drawStick($('dzL'),dzState.last.lx||0,dzState.last.ly||0,(dzState.last.lMin||0));
+  drawStick($('dzR'),dzState.last.rx||0,dzState.last.ry||0,(dzState.last.rMin||0));
 }
 function dzLoop(){ if(!dzState.running) return; pollPad(); requestAnimationFrame(dzLoop); }
 $('dzStart').addEventListener('click',()=>{ dzState.running=true; dzState.phase='idle'; dzState.hadPad=false; $('dzStop').disabled=false; $('dzStart').disabled=true; $('dzRe').disabled=true; startIdle(); dzLoop(); });
 $('dzRe').addEventListener('click',()=> startIdle());
 $('dzStop').addEventListener('click',()=>{ dzState.running=false; dzState.phase='idle'; $('dzStatus').textContent='Stopped. Press Start to measure again.'; $('dzStatus').className='status'; $('dzStop').disabled=true; $('dzStart').disabled=false; $('dzRe').disabled=true; });
 function dzRedrawLast(){ drawStick($('dzL'),dzState.last.lx||0,dzState.last.ly||0,(dzState.last.lMin||0)); drawStick($('dzR'),dzState.last.rx||0,dzState.last.ry||0,(dzState.last.rMin||0)); }
+
+/* Keep Deadzone page in sync with Translator MAX fields live */
+['lsMax','rsMax','lsMin','rsMin'].forEach(id=>{
+  $(id).addEventListener('input', ()=>{
+    const Lmax=clamp(Math.round(parseFloat($('lsMax').value||99)),50,100);
+    const Rmax=clamp(Math.round(parseFloat($('rsMax').value||99)),50,100);
+    const Lmin=clamp(Math.round(parseFloat($('lsMin').value||12)),0,20);
+    const Rmin=clamp(Math.round(parseFloat($('rsMin').value||12)),0,20);
+    if($('lmaxth')) $('lmaxth').textContent = String(Lmax);
+    if($('rmaxth')) $('rmaxth').textContent = String(Rmax);
+    if($('lcent'))  $('lcent').textContent  = String(Lmin);
+    if($('rcent'))  $('rcent').textContent  = String(Rmin);
+  });
+});
 
 /* ===== PRESETS ===== */
 $('exportBtn').addEventListener('click',()=>{
@@ -534,7 +608,8 @@ $('exportBtn').addEventListener('click',()=>{
     codH:$('codH').value,codV:$('codV').value,codADS:$('codADS').value,
     codADSMode:$('codADSMode').value,codTrans:$('codTrans').value,
     lsMin:$('lsMin').value,rsMin:$('rsMin').value,lsMax:$('lsMax').value,rsMax:$('rsMax').value,
-    speedMatch:$('speedMatch').checked
+    speedMatch:$('speedMatch').checked,
+    cod_fov:$('cod_fov').value
   };
   st.bfFam=$('visBfFam').value; st.output=$('out').textContent;
   $('jsonBox').value=JSON.stringify(st,null,2);
@@ -547,6 +622,12 @@ $('importBtn').addEventListener('click',()=>{
       $('codADS').value=o.inputs.codADS||'1.00'; $('codADSMode').value=o.inputs.codADSMode||'Affected'; $('codTrans').value=o.inputs.codTrans||'Instant';
       $('lsMin').value=o.inputs.lsMin||'12'; $('rsMin').value=o.inputs.rsMin||'12'; $('lsMax').value=o.inputs.lsMax||'99'; $('rsMax').value=o.inputs.rsMax||'99';
       $('speedMatch').checked=!!o.inputs.speedMatch;
+      $('cod_fov').value=o.inputs.cod_fov||'105';
+      // Reflect immediately on Deadzone page labels
+      if($('lmaxth')) $('lmaxth').textContent = String($('lsMax').value);
+      if($('rmaxth')) $('rmaxth').textContent = String($('rsMax').value);
+      if($('lcent'))  $('lcent').textContent  = String($('lsMin').value);
+      if($('rcent'))  $('rcent').textContent  = String($('rsMin').value);
     }
     if(o.codCurve){ $('codCurve').value=o.codCurve; }
     if(o.codSlope){ $('codSlope').value=o.codSlope; }
@@ -559,16 +640,20 @@ $('importBtn').addEventListener('click',()=>{
 /* ===== INIT ===== */
 (function init(){
   $('codH').value=1.50; $('codV').value=1.50; $('codCurve').value='Dynamic'; $('codSlope').value=1.00;
+  $('cod_fov').value=105;
   $('codADS').value=1.00; $('codADSMode').value='Affected'; $('codTrans').value='Instant';
   $('lsMin').value=12; $('rsMin').value=12; $('lsMax').value=99; $('rsMax').value=99;
   $('speedMatch').checked=false;
+
+  // Seed the Deadzone page labels with current translator values
+  $('lmaxth').textContent = $('lsMax').value;
+  $('rmaxth').textContent = $('rsMax').value;
+  $('lcent').textContent  = $('lsMin').value;
+  $('rcent').textContent  = $('rsMin').value;
+
   window.__aimMapperState__={codCurve:'Dynamic',codSlope:1.00,bfFam:chooseBFCurve('Dynamic',1.00).family};
   dzRedrawLast();
 })();
 </script>
 </body>
 </html>
-
-
-
-
